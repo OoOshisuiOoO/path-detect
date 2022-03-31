@@ -7,10 +7,12 @@ local PLUGIN_NAME = "path-detect"
 for _, strategy in helpers.all_strategies() do
   describe(PLUGIN_NAME .. ": (access) [#" .. strategy .. "]", function()
     local client
-
+    print("\"run test appears as ----\"")
     lazy_setup(function()
 
-      local bp = helpers.get_db_utils(strategy == "off" and "postgres" or strategy, nil, { PLUGIN_NAME })
+      local bp = helpers.get_db_utils(
+        strategy == "off" and "postgres" or strategy, nil, { PLUGIN_NAME }
+      )
 
       -- Inject a test route. No need to create a service, there is a default
       -- service which will echo the request.
