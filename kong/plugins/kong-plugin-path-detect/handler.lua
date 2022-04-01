@@ -43,15 +43,16 @@ function plugin:access(plugin_conf)
   ngx.log(ngx.ERR, "============ Hello World! ============ 1")
   kong.log.inspect(plugin_conf)   -- check the logs for a pretty-printed config!
   kong.service.request.set_header(plugin_conf.request_header, "this is on a request")
-  ngx.log(ngx.ERR, "============ Hello World! ============")
+  ngx.log(ngx.ERR, "============ Hello World! ============ 2")
 end --]]
 
 
 -- runs in the 'header_filter_by_lua_block'
 function plugin:header_filter(plugin_conf)
-  ngx.log(ngx.ERR, "============ Hello World! ============")
+  ngx.log(ngx.ERR, "============ Hello World! ============ 3")
   -- your custom code here, for example;
   kong.response.set_header(plugin_conf.response_header, "this is on the response")
+  ngx.log(ngx.ERR, "============ Hello World! ============ 4")
 end --]]
 
 
