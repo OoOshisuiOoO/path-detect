@@ -1,4 +1,4 @@
-local PLUGIN_NAME = "path-detect"
+local PLUGIN_NAME = "kong-plugin-path-detect"
 
 
 -- helper function to validate data against a schema

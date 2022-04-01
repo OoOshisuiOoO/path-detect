@@ -1,7 +1,7 @@
 local helpers = require "spec.helpers"
 
 
-local PLUGIN_NAME = "path-detect"
+local PLUGIN_NAME = "kong-plugin-path-detect"
 
 
 for _, strategy in helpers.all_strategies() do

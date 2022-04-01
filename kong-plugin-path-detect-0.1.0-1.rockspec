@@ -1,5 +1,4 @@
-local plugin_name = "path-detect"
-local package_name = "kong-plugin-" .. plugin_name
+local package_name = "kong-plugin-path-detect"
 local package_version = "0.1.0"
 local rockspec_revision = "1"
 
@@ -32,7 +31,7 @@ build = {
   type = "builtin",
   modules = {
     -- TODO: add any additional code files added to the plugin
-    ["kong.plugins."..plugin_name..".handler"] = "kong/plugins/"..plugin_name.."/handler.lua",
-    ["kong.plugins."..plugin_name..".schema"] = "kong/plugins/"..plugin_name.."/schema.lua",
+    ["kong.plugins."...package_name...".handler"] = "kong/plugins/"...package_name..."/handler.lua",
+    ["kong.plugins."...package_name...".schema"] = "kong/plugins/"...package_name..."/schema.lua",
   }
 }
