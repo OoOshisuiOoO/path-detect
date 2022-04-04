@@ -7,5 +7,10 @@ return {
           EXCEPTION WHEN DUPLICATE_COLUMN THEN
       END$$;
     ]],
+  },
+  cassandra = {
+    up = [[
+      ALTER TABLE routes ADD mapping_id set<text>;
+    ]],
   }
 }
