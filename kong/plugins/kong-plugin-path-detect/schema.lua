@@ -12,16 +12,39 @@ local schema = {
       -- The 'config' record is the custom part of the plugin schema
       type = "record",
       fields = {
-        -- a standard defined field (typedef), with some customizations
-        { authentication_domain = {
+
+        -- p  ath authentication
+        { path = {
           type = "string",
           required = true,
         } },
-        { authentication_port = {
-          type = "integer",
+        -- headers authentication
+        { headers = typedefs.headers {
+          keys = typedefs.header_name {
+            required = false,
+            match_none = {
+              {
+                pattern = "^[Hh][Oo][Ss][Tt]$",
+                err = "cannot contain 'host' header, which must be specified in the 'hosts' attribute",
+              },
+            },
+          },
+        } },
+
+
+        -- secret sv2
+        { secret = {
           required = true,
-          gt = 0,
-        } }, -- adding a constraint for the value
+          type = "string"
+        }, },
+
+        -- time_out authentication
+        { time_out = {
+          required = false,
+          type = "integer",
+          default = 5
+        }, },
+
       },
     },
     },
