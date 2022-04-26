@@ -21,6 +21,10 @@ function _M.execute(conf)
     method = kong.request.get_method(),
     service = service_data.name
   }
+  ngx.log(ngx.ERR, "Path =====> ", path)
+  ngx.log(ngx.ERR, "Method =====> ", method)
+  ngx.log(ngx.ERR, "Service =====> ", service)
+  ngx.log(ngx.ERR, "Host =====> ", service_data.host)
 
   local auth_res, err = client:request_uri(path, {
     method = "POST",
