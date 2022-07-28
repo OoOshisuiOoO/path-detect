@@ -21,6 +21,7 @@ function _M.execute(conf)
     method = kong.request.get_method(),
     service = service_data.name
   }
+  body =kong.request.get_body()
   ngx.log(ngx.ERR, "Path =====> ", path)
   ngx.log(ngx.ERR, "Method =====> ", method)
   ngx.log(ngx.ERR, "Service =====> ", service)
@@ -54,6 +55,7 @@ function _M.execute(conf)
   local token = json_data['result']['token']
   kong.service.request.set_header("Authorization", "Bearer " .. token)
   ngx.log(ngx.ERR, "============>Path detect end <============ ")
+  kong.response.get_raw_body()
 end
 
 return _M
