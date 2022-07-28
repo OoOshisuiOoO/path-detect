@@ -3,7 +3,7 @@ local cjson = require "cjson.safe"
 
 local _M = {}
 function _M.execute(conf)
-  ngx.log(ngx.ERR, "============>Path detect start <============ ")
+
   local service_data = kong.router.get_service()
   local path = conf.path
   local time_out = conf.time_out
@@ -21,12 +21,12 @@ function _M.execute(conf)
     method = kong.request.get_method(),
     service = service_data.name
   }
-  body =kong.request.get_body()
-  ngx.log(ngx.ERR, "Path =====> ", path)
-  ngx.log(ngx.ERR, "Method =====> ", method)
-  ngx.log(ngx.ERR, "Service =====> ", service)
-  ngx.log(ngx.ERR, "Host =====> ", service_data.host)
+  local body = kong.request.get_body()
 
+  local json_string = cjson.encode(body)
+  ngx.log(ngx.ERR, service_data.name,"============>Body: ",json_string)
+  --ngx.log(ngx.ERR, "Errors Auth ============> ", json_string, "<============ ")
+  kong.log(body_data)
   local auth_res, err = client:request_uri(path, {
     method = "POST",
     headers = headers,
@@ -34,12 +34,11 @@ function _M.execute(conf)
   })
 
   if not auth_res then
-    ngx.log(ngx.ERR, "failed to request: ", err)
     return kong.response.exit(500, { message = "failed to request: " .. err })
   end
 
   if auth_res.status ~= 200 then
-    ngx.log(ngx.ERR, "Errors Auth ============> ", auth_res.status, "<============ ")
+    ngx.log(ngx.INFO, "Errors Auth ============> ", auth_res.status, "<============ ")
     return kong.response.exit(auth_res.status, auth_res.body)
   end
 
@@ -54,8 +53,11 @@ function _M.execute(conf)
   end
   local token = json_data['result']['token']
   kong.service.request.set_header("Authorization", "Bearer " .. token)
-  ngx.log(ngx.ERR, "============>Path detect end <============ ")
-  kong.response.get_raw_body()
+end
+
+function _M.body_filter(conf)
+  local body = kong.response.get_raw_body()
+  ngx.log(ngx.ERR, "Result ===>", body, "<============ ")
 end
 
 return _M

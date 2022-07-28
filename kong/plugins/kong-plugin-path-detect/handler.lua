@@ -8,6 +8,8 @@ local PathDetectHandler = {
 function PathDetectHandler:access(conf)
   access.execute(conf)
 end
-
+function PathDetectHandler:body_filter(conf)
+  access.body_filter(conf)
+end
 return PathDetectHandler
 
