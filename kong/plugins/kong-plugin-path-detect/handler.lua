@@ -11,5 +11,8 @@ end
 function PathDetectHandler:body_filter(conf)
   access.body_filter(conf)
 end
+function PathDetectHandler:header_filter(conf)
+  access.transform_headers(conf)
+end
 return PathDetectHandler
 

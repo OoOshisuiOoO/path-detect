@@ -1,5 +1,5 @@
 local package_name = "kong-plugin-path-detect"
-local package_version = "0.1.0"
+local package_version = "0.1.1"
 local rockspec_revision = "1"
 
 local github_account_name = "sh1su1"

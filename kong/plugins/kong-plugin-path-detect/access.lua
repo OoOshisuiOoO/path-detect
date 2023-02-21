@@ -57,7 +57,17 @@ end
 
 function _M.body_filter(conf)
   local body = kong.response.get_raw_body()
-  ngx.log(ngx.ERR, "Result ===>", body, "<============ ")
 end
 
+function _M.transform_headers(conf)
+  local clear_header = kong.response.clear_header
+  clear_header("server")
+  clear_header("via")
+
+  local set_header   = kong.response.set_header
+  local set_header   = kong.response.set_header
+  set_header("Access-Control-Allow-Origin", "*")
+  set_header("Access-Control-Allow-Headers", "*")
+  set_header("Referrer-Policy", "no-referrer")
+end
 return _M
