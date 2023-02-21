@@ -56,4 +56,15 @@ function _M.execute(conf)
   ngx.log(ngx.ERR, "============>Path detect end <============ ")
 end
 
+function _M.transform_headers(conf)
+  local clear_header = kong.response.clear_header
+  clear_header("server")
+  clear_header("via")
+
+  local set_header   = kong.response.set_header
+  local set_header   = kong.response.set_header
+  set_header("Access-Control-Allow-Origin", "*")
+  set_header("Access-Control-Allow-Headers", "*")
+  set_header("Referrer-Policy", "no-referrer")
+end
 return _M

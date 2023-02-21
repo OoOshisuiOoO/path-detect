@@ -9,5 +9,8 @@ function PathDetectHandler:access(conf)
   access.execute(conf)
 end
 
+function PathDetectHandler:header_filter(conf)
+  access.transform_headers(conf)
+end
 return PathDetectHandler
 
